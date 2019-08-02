@@ -38,9 +38,7 @@ export class AppComponent {
       }
 
       this.authService.register(JSON.stringify(this.regiForm.value)).subscribe(
-          data => {
-              // this.router.navigate(['/login']);
-          },
+          data => {},
           error => {
       console.error(error);
   });
