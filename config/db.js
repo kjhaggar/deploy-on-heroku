@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/deploySample', { useNewUrlParser: true });
+mongoose.connect('mongodb:https://demo-deploy-sample.herokuapp.com/', { useNewUrlParser: true });
 
 mongoose.connection.on('connected', function (err) {
   console.log("Connected to DB Successfully");
