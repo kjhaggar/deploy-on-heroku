@@ -45,12 +45,29 @@ export class AppComponent {
 }
 
 Display = () => {
-  this.authService.showList().subscribe(
-    data => {
-      this.users=data;
-    },
-    error => {
-console.error(error);
-});
+//   this.authService.showList().subscribe(
+//     data => {
+//       this.users=data;
+//     },
+//     error => {
+// console.error(error);
+// });
+
+this.users = [
+  {
+      "userName": "kjhaggar",
+      "firstName": "karuna",
+      "lastName": "jhaggar",
+      "email" : "kjhaggar@bestpeers.com",
+      "password": "qwerty"
+  },
+  {
+      "userName": "ankita",
+      "firstName": "ankita",
+      "lastName": "singh",
+      "email" : "ankita@gmail.com",
+      "password": "qwerty"
+  }
+]
 }
 }
