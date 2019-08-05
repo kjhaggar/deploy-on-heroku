@@ -1,8 +1,5 @@
 const express = require('express');
 const path = require('path');
-// db = require('./config/db');
-// var bodyParser = require('body-parser');
-// var cookieParser = require('cookie-parser');
 var indexRouter = require('./routes/index');
 var logger = require('morgan');
 
@@ -14,11 +11,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist/deploy-sample')));
 // app.use(cookieParser());
-app.use('/apis', express.static(path.join(__dirname, 'dist/deploy-sample/index.html')));
+app.use('/apis', express.static(path.join(__dirname, 'dist/deploy-sample')));
 app.use('/api', indexRouter);
 
 // catch 404 and forward to error handler
