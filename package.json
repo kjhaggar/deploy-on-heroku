@@ -22,8 +22,6 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "jade": "^1.11.0",
     "morgan": "^1.9.1",
