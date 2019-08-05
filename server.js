@@ -10,9 +10,12 @@ app.engine('pug', require('pug').__express)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.get('/*', function(req,res) {
+    
+  res.sendFile(path.join(__dirname+'/dist/deploy-sample/index.html'));
+  });
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'dist/deploy-sample')));
-// app.use(cookieParser());
 app.use('/apis', express.static(path.join(__dirname, 'dist/deploy-sample')));
 app.use('/api', indexRouter);
 
