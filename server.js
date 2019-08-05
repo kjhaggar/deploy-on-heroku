@@ -10,7 +10,7 @@ app.engine('pug', require('pug').__express)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.get('/*', function(req,res) {
+app.get('/', function(req,res) {
     
   res.sendFile(path.join(__dirname+'/dist/deploy-sample/index.html'));
   });
