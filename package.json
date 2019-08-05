@@ -26,7 +26,6 @@
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "jade": "^1.11.0",
-    "mongodb": "^3.3.0-beta2",
     "morgan": "^1.9.1",
     "path": "^0.12.7",
     "pug": "^2.0.4",
