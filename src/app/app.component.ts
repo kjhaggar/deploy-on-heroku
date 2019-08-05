@@ -38,7 +38,7 @@ export class AppComponent {
       }
 
       this.authService.register(JSON.stringify(this.regiForm.value)).subscribe(
-          data => {},
+          data => {console.log(data)},
           error => {
       console.error(error);
   });
