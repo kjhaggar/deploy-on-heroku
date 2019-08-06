@@ -29,3 +29,7 @@ function handleError(res, reason, message, code) {
 app.get("/api/contacts", function (req, res) {
   res.status(200).json({"message": "success.."})
 });
+
+app.get("/", function (req, res) {
+  res.send(__dirname + "/dist/deploy-sample/index.html")
+});
