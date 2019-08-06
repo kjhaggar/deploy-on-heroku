@@ -1,41 +1,38 @@
-const express = require('express');
-const path = require('path');
-var indexRouter = require('./routes/index');
-var logger = require('morgan');
+
+var express = require("express");
+var bodyParser = require("body-parser");
+var mongodb = require("mongodb");
+var ObjectID = mongodb.ObjectID;
+
+var CONTACTS_COLLECTION = "contacts";
 
 var app = express();
+app.use(bodyParser.json());
 
-// Serve only the static files form the dist directory
-app.engine('pug', require('pug').__express)
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// Create link to Angular build directory
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
 
-app.get('*', function(req,res) {
-    
-  res.sendFile(path.join(__dirname+'/dist/deploy-sample/index.html'));
-  });
-app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'dist/deploy-sample')));
-app.use('/apis', express.static(path.join(__dirname, 'dist/deploy-sample')));
-app.use('/api', indexRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+// Initialize the app.
+var server = app.listen(process.env.PORT || 8080, function () {
+  var port = server.address().port;
+  console.log("App now running on port", port);
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  // res.render('error');
-  res.jsonp({success : true})
+// CONTACTS API ROUTES BELOW
+
+// Generic error handler used by all endpoints.
+function handleError(res, reason, message, code) {
+  console.log("ERROR: " + reason);
+  res.status(code || 500).json({ "error": message });
+}
+
+/*  "/api/contacts"
+ *    GET: finds all contacts
+ *    POST: creates a new contact
+ */
+
+app.get("/api/contacts", function (req, res) {
+  res.status(200).json({"message": "success.."})
 });
-
-module.exports = app;
