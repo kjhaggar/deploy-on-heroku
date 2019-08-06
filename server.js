@@ -31,5 +31,5 @@ app.get("/api/contacts", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/dist/deploy-sample/index.html")
+  res.sendFile(path.join(__dirname + "/dist/deploy-sample/index.html"));
 });
