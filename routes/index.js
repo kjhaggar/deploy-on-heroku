@@ -1,56 +1,54 @@
 var express = require('express');
 var router = express.Router();
+const pg = require('pg');
+const path = require('path');
+const connectionString = process.env.DATABASE_URL || 'postgres://developer:admin@localhost:5432/developer';
 // var User = require('../models/users');
 
+// router.get('/', (req, res, next) => {
+//     res.sendFile(path.join(__dirname,'..', 'src', 'index.html'));
+// });
 
-router.post('/register', function (req, res, next) {
-    // addToDB(req, res);
-    res.json("registered")
-});
-
-async function addToDB(req, res) {
-    var user = new User({
-        email: req.body.email,
-        userName: req.body.userName,
-        firstName: req.body.firstName,
-        lastName:req.body.lastName,
-        password: req.body.password
+router.post('/register', (req, res, next) => {debugger
+    const results = [];
+    console.log(req.body)
+    const data = {name: req.body.userName, email: req.body.email};
+    pg.connect(connectionString, (err, client, done) => {
+      if(err) {
+        done();
+        console.log(err);
+        return res.status(500).json({success: false, data: err});
+      }
+      client.query('INSERT INTO users(name, email) values($1, $2)',
+      [data.name, data.email]);
+      const query = client.query('SELECT * FROM users ORDER BY id ASC');
+      query.on('row', (row) => {
+        results.push(row);
+      });
+      query.on('end', () => {
+        done();
+        return res.json(results);
+      });
     });
-    
-    try {
-        doc = await user.save();
-        return res.status(201).json(doc);
-    }
-    catch (err) {
-        return res.status(501).json(err);
-    }
-}
+  });
 
 router.get('/displayList', function(req, res) {
-    // User.find({}).exec(function (err, user) {
-    //     if (err) {
-    //     console.log("Error:", err);
-    //     } else { 
-    //         res.json(user);
-    //     }
-    // });
-    var user = [
-        {
-            "userName": "kjhaggar",
-            "firstName": "karuna",
-            "lastName": "jhaggar",
-            "email" : "kjhaggar@bestpeers.com",
-            "password": "qwerty"
-        },
-        {
-            "userName": "ankita",
-            "firstName": "ankita",
-            "lastName": "singh",
-            "email" : "ankita@gmail.com",
-            "password": "qwerty"
-        }
-      ]
-    res.send(user);
+  const results = [];
+  pg.connect(connectionString, (err, client, done) => {
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+    const query = client.query('SELECT * FROM users ORDER BY id ASC;');
+    query.on('row', (row) => {
+      results.push(row);
+    });
+    query.on('end', () => {
+      done();
+      return res.json(results);
+    });
+  });
 });
 
 module.exports = router;

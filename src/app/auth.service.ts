@@ -3,27 +3,27 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
+    
+    constructor(private http: HttpClient) { }
 
-  url = 'http://127.0.0.1:3000/api';
+    register(body: any) {
+        return this.http.post("/api/register", body,
+        {
+        observe: 'body',
+        withCredentials:true,
+        headers: new HttpHeaders().append('Content-Type', 'application/json')
+        });
+    }
 
-  constructor(private http: HttpClient, private router : Router) { }
-
-  register(body: any) {
-    return this.http.post("/api/register", body,
-    {
-      observe: 'body',
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
-  }
-
-  showList() {
-    return this.http.get("/api/displayList",
-    {
-      observe: 'body',
-      headers: new HttpHeaders().append('Content-Type', 'application/json')
-    });
-  }
+    showList() {
+        return this.http.get("/api/displayList",
+        {
+        observe: 'body',
+        withCredentials:true,
+        headers: new HttpHeaders().append('Content-Type', 'application/json')
+        });
+    }
 }
