@@ -35,6 +35,7 @@ export class AppComponent {
         
         this.authService.register(JSON.stringify(this.regiForm.value)).subscribe(
           data => {
+              this.regiForm.reset();
               console.log(data)
             },
           error => {
